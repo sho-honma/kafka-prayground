@@ -8,14 +8,12 @@ services:
       - "32181:2181"
     environment:
       ZOOKEEPER_CLIENT_PORT: 2181
-      # ZOOKEEPER_TICK_TIME: 1000000
     healthcheck:
       test: ["CMD", "echo", "ruok", "|", "nc", "localhost", "32181"]
       interval: 10s
       timeout: 5s
       retries: 3
   broker:
-    # image: bitnami/kafka:latest
     build: ./docker/kafka/broker
     hostname: broker
     container_name: broker
@@ -29,12 +27,9 @@ services:
     environment:
       KAFKA_BROKER_ID: 1
       KAFKA_ZOOKEEPER_CONNECT: "zookeeper:2181"
-      # KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT
-      # KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://broker:29092
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
       CONFLUENT_SUPPORT_METRICS_ENABLE: "false"
   cli:
-    # image: bitnami/kafka:latest
     build: ./docker/kafka/cli
     hostname: cli
     container_name: cli
