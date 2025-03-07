@@ -21,6 +21,7 @@ services:
       KAFKA_BROKER_ID: 1
       KAFKA_ZOOKEEPER_CONNECT: "zookeeper:2181"
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+
   kafka-ui:
     image: provectuslabs/kafka-ui:latest
     container_name: kafka-ui
@@ -31,5 +32,5 @@ services:
     restart: always
     environment:
       TZ: Asia/Tokyo
-      KAFKA_CLUSTERS_0_NAME: kafka-0
-      KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS: broker:9092
+      KAFKA_CLUSTERS_0_NAME: "kafka-0"
+      KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS: "broker:9092"
