@@ -58,4 +58,5 @@ services:
       CONNECT_KEY_CONVERTER: "org.apache.kafka.connect.storage.StringConverter"
       CONNECT_VALUE_CONVERTER: "org.apache.kafka.connect.storage.StringConverter"
     volumes:
-      - ./docker/kafka/connect/config:/etc/kafka-connect
+      - ./docker/kafka/connect/config/connect-s3-sink.json:/etc/kafka-connect/connect-s3-sink.json
+      - ./docker/kafka/connect/config/kafka-connect.properties:/etc/kafka-connect/kafka-connect.properties
