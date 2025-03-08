@@ -1,0 +1,10 @@
+FROM confluentinc/cp-kafka-connect:latest
+
+# 必要なプラグインのディレクトリを作成
+RUN mkdir -p /usr/share/java/kafka-connect-s3
+
+# S3 Sink Connector をダウンロードして配置
+RUN curl -SL "https://packages.confluent.io/maven/io/confluent/kafka-connect-s3/10.5.23/kafka-connect-s3-10.0.0.jar" -o /usr/share/java/kafka-connect-s3/kafka-connect-s3.jar
+
+# Kafka Connect を起動
+CMD ["bash", "/etc/confluent/docker/run"]

@@ -34,3 +34,28 @@ services:
       TZ: Asia/Tokyo
       KAFKA_CLUSTERS_0_NAME: "kafka-0"
       KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS: "broker:9092"
+
+  kafka-connect:
+    build: ./docker/kafka/connect
+    container_name: kafka-connect
+    depends_on:
+      - broker
+    ports:
+      - "8083:8083"
+    environment:
+      # Kafka Connectの設定
+      CONNECT_CONFIG_STORAGE_REPLICATION_FACTOR: 1
+      CONNECT_OFFSET_STORAGE_REPLICATION_FACTOR: 1
+      CONNECT_STATUS_STORAGE_REPLICATION_FACTOR: 1
+      CONNECT_PLUGIN_PATH: "/usr/share/java"
+      CONNECT_REST_ADVERTISED_HOST_NAME: "localhost"
+      CONNECT_BOOTSTRAP_SERVERS: "broker:9092"
+      CONNECT_REST_PORT: 8083
+      CONNECT_GROUP_ID: "connect-cluster"
+      CONNECT_CONFIG_STORAGE_TOPIC: "connect-configs"
+      CONNECT_OFFSET_STORAGE_TOPIC: "connect-offsets"
+      CONNECT_STATUS_STORAGE_TOPIC: "connect-status"
+      CONNECT_KEY_CONVERTER: "org.apache.kafka.connect.storage.StringConverter"
+      CONNECT_VALUE_CONVERTER: "org.apache.kafka.connect.storage.StringConverter"
+    volumes:
+      - ./docker/kafka/connect/config:/etc/kafka-connect
